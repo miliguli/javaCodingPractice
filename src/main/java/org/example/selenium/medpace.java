@@ -1,14 +1,17 @@
 package org.example.selenium;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
+
 import java.util.concurrent.TimeUnit;
 
-public class amazonPage {
+public class medpace {
     static WebDriver driver;
 
 
@@ -21,16 +24,17 @@ public class amazonPage {
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-        driver.get("https://www.amazon.com/");
+        driver.get("https://www.medpace.com/");
 
-        WebElement searchBox = driver.findElement(By.id("twotabsearchtextbox"));
-        waitForElement(driver,searchBox);
-        searchBox.sendKeys("iphone 14");
-        WebElement searchButton = driver.findElement(By.xpath("//*[@id=\"nav-search-submit-button\"]"));
-        searchButton.click();
-        WebElement confirm = driver.findElement(By.xpath("//*[@id=\"search\"]/span/div/h1/div/div[1]/div/div/span[3]"));
-        System.out.println(confirm.getText());
-
+        WebElement aboutMenuButton = driver.findElement(By.id("menu-item-60"));
+        waitForElement(driver,aboutMenuButton);
+        aboutMenuButton.click();
+        WebElement overviewMenuButton = driver.findElement(By.xpath("//*[@id=\"menu-item-10050\"]"));
+        overviewMenuButton.click();
+        WebElement ourMissionLinkText = driver.findElement(By.linkText("Our Mission"));
+        ourMissionLinkText.click();
+        WebElement text = driver.findElement(By.cssSelector("<h1 class=\"masthead__title\">Our Mission</h1>"));
+        System.out.println(text.getText());
         driver.close();
 
 
